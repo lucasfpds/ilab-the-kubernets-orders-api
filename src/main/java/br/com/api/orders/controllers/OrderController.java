@@ -18,7 +18,7 @@ public class OrderController<Json> {
     @Autowired
     private IOrderService iservice;
 
-    Gson g = new Gson();
+    Gson gson = new Gson();
 
     @PostMapping("/create-order")
     public ResponseEntity<?> createNewOrder(@RequestBody Order newOrder) throws Exception {
@@ -27,9 +27,9 @@ public class OrderController<Json> {
             return ResponseEntity.status(201).body(order);
         
         } catch (Exception e) {
-            Object error = g.fromJson(e.getMessage(), Object.class);
+            Object error = gson.fromJson(e.getMessage(), Object.class);
 
-            return ResponseEntity.status(400).body(g.toJson(error));
+            return ResponseEntity.status(400).body(gson.toJson(error));
         }
     }
 

@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.api.orders.dao.OrdersDAO;
+import br.com.api.orders.dto.OrderDTO;
 import br.com.api.orders.model.Order;
 import br.com.api.orders.services.sqs.SQSServiceProducer;
 import br.com.api.orders.services.sqs.SQSServiceReader;
+import br.com.api.orders.util.UserEmail;
 
 @Component
 public class OrderServiceImpl implements IOrderService {
@@ -28,21 +30,28 @@ public class OrderServiceImpl implements IOrderService {
             Date date = new Date(); 
             Timestamp orderTimeStamp = new Timestamp(date.getTime());
 
-            Order order = new Order(newOrder.getIdUser(),
+            new UserEmail();
+            String emailUser = UserEmail.userExist(newOrder);
+
+            OrderDTO orderDto = new OrderDTO(newOrder.getIdUser(), emailUser,
                     newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
            
             Gson gson = new GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
                     .create();
 
-            String jsonString = gson.toJson(order);
+            String jsonString = gson.toJson(orderDto);
 
             SQSServiceProducer.sendMessageProducer(jsonString);
-            Order orderComplete = SQSServiceReader.messageReader(order.getStatus());
+            OrderDTO orderComplete = SQSServiceReader.messageReader();
 
-            dao.save(orderComplete);
+            Order orderFinalizado = new Order(orderComplete.getIdUser(), orderComplete.getDescription(), 
+                                                orderComplete.getTotalValue(), orderComplete.getOrdersDate(), 
+                                                orderComplete.getStatus());
 
-            return orderComplete;
+            dao.save(orderFinalizado);
+
+            return orderFinalizado;
         } 
 
         throw new Exception("{\"error\":\"Bad Request\"}");

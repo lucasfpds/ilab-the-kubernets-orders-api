@@ -45,6 +45,15 @@ public class Order {
         this.ordersDate = ordersDate;
     }
 
+
+    public Order(Integer idUser, String description, Integer totalValue, Timestamp ordersDate, String status) {
+        this.idUser = idUser;
+        this.description = description;
+        this.totalValue = totalValue;
+        this.ordersDate = ordersDate;
+        this.status = status;
+    }
+
     public Integer getIdOrder() {
         return idOrder;
     }
