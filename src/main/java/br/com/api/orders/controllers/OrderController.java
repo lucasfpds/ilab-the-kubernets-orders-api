@@ -23,7 +23,9 @@ public class OrderController<Json> {
     @PostMapping("/create-order")
     public ResponseEntity<?> createNewOrder(@RequestBody Order newOrder) throws Exception {
         try {
-            return ResponseEntity.status(201).body(iservice.createOrder(newOrder));
+            final Order order = iservice.createOrder(newOrder);
+            return ResponseEntity.status(201).body(order);
+        
         } catch (Exception e) {
             Object error = g.fromJson(e.getMessage(), Object.class);
 

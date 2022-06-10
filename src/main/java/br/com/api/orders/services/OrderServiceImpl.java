@@ -1,14 +1,20 @@
 package br.com.api.orders.services;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.api.orders.dao.OrdersDAO;
 import br.com.api.orders.model.Order;
+import br.com.api.orders.services.sqs.SQSServiceProducer;
+import br.com.api.orders.services.sqs.SQSServiceReader;
 
 @Component
 public class OrderServiceImpl implements IOrderService {
@@ -19,12 +25,24 @@ public class OrderServiceImpl implements IOrderService {
     public Order createOrder(Order newOrder) throws Exception {
 
         if(checkExistOrder(newOrder)) {
-            Order order = new Order(newOrder.getIdUser(), 
-                                    newOrder.getDescription(), newOrder.getTotalValue(), new Date());
+            Date date = new Date(); 
+            Timestamp orderTimeStamp = new Timestamp(date.getTime());
 
-            
-            dao.save(order);
-            return order;
+            Order order = new Order(newOrder.getIdUser(),
+                    newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
+           
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                    .create();
+
+            String jsonString = gson.toJson(order);
+
+            SQSServiceProducer.sendMessageProducer(jsonString);
+            Order orderComplete = SQSServiceReader.messageReader(order.getStatus());
+
+            dao.save(orderComplete);
+
+            return orderComplete;
         } 
 
         throw new Exception("{\"error\":\"Bad Request\"}");

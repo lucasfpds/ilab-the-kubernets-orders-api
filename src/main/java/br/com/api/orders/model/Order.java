@@ -1,6 +1,6 @@
 package br.com.api.orders.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +28,7 @@ public class Order {
     private Integer totalValue;
 
     @Column(name = "orders_date", columnDefinition = "TIMESTAMP", nullable = false)
-    private Date ordersDate;
+    private Timestamp ordersDate;
 
     @Column(name = "status", length = 20, nullable = false)
     @org.hibernate.annotations.ColumnDefault("aberto")
@@ -38,7 +38,7 @@ public class Order {
         
     }
 
-    public Order(Integer idUser, String description, Integer totalValue, Date ordersDate) {
+    public Order(Integer idUser, String description, Integer totalValue, Timestamp ordersDate) {
         this.idUser = idUser;
         this.description = description;
         this.totalValue = totalValue;
@@ -77,11 +77,11 @@ public class Order {
         this.totalValue = totalValue;
     }
 
-    public Date getOrdersDate() {
+    public Timestamp getOrdersDate() {
         return ordersDate;
     }
 
-    public void setOrdersDate(Date ordersDate) {
+    public void setOrdersDate(Timestamp ordersDate) {
         this.ordersDate = ordersDate;
     }
 
@@ -91,5 +91,12 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "{\"idOrder\": \"" + idOrder + "\",\"idUser\": \"" + idUser + "\",\"description\": \"" + description
+                + "\",\"ordersDate\": \"" + ordersDate + "\",\"status\": \"" + status + "\",\"totalValue\": \""
+                + totalValue + "\"}";
     }
 }
