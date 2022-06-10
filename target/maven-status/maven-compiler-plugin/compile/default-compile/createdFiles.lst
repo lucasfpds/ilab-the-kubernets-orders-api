@@ -1,1 +1,7 @@
+br/com/api/orders/dao/OrdersDAO.class
 br/com/api/orders/Application.class
+br/com/api/orders/services/OrderServiceImpl.class
+br/com/api/orders/model/Order.class
+br/com/api/orders/services/IOrderService.class
+br/com/api/orders/CorsConfiguration.class
+br/com/api/orders/controllers/OrderController.class
