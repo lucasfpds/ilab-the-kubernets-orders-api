@@ -21,6 +21,9 @@ public class SQSServiceReader {
             
             OrderDTO jsonPedido = new Gson().fromJson(stringMessage, OrderDTO.class);
 
+            System.out.println(jsonPedido.getStatus());
+            System.out.println(jsonPedido.getStatusEmail());
+
             if(jsonPedido.getStatus().equals("aberto")) {
                 throw new Exception("{\"error\":\"O pedido não foi concluído com sucesso.\"}");
             }

@@ -34,13 +34,8 @@ public class OrderController<Json> {
         }
     }
 
-    @GetMapping("orders")
+    @GetMapping("/orders")
     public ResponseEntity<?> readOrders() {
         return ResponseEntity.status(200).body(iservice.readOrders());
-    }
-
-    @GetMapping("order/{id}")
-    public ResponseEntity<?> readOrder(@PathVariable Integer id) {
-        return ResponseEntity.status(200).body(iservice.readOrderById(id));
     }
 }

@@ -5,7 +5,7 @@ create database db_orders;
 drop table orders;
 
 create table orders (
-	id_oreder serial not null primary key,
+	id_order serial not null primary key,
 	id_user integer not null,
 	descricao varchar(255) not null, 
 	valor_total integer not null,

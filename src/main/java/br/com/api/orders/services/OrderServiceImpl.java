@@ -46,8 +46,6 @@ public class OrderServiceImpl implements IOrderService {
             
             try {
                 OrderDTO orderComplete = SQSServiceReader.messageReader();
-
-                System.out.println(orderComplete);
     
                 Order orderFinalizado = new Order(orderComplete.getIdUser(), orderComplete.getDescription(), 
                                                     orderComplete.getTotalValue(), orderComplete.getOrdersDate(), 
