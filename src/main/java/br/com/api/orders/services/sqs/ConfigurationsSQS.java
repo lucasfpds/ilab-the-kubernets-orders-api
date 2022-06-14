@@ -17,7 +17,7 @@ public class ConfigurationsSQS {
 
     static GetQueueUrlRequest getUrlRequest() {
         GetQueueUrlRequest request = GetQueueUrlRequest.builder()
-                .queueName("grupo4-sqs").build();
+                .queueName("queue-grupo4").build();
         return request;
     }
 

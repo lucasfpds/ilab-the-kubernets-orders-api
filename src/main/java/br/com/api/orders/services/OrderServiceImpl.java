@@ -16,7 +16,7 @@ import br.com.api.orders.dto.OrderDTO;
 import br.com.api.orders.model.Order;
 import br.com.api.orders.services.sqs.SQSServiceProducer;
 import br.com.api.orders.services.sqs.SQSServiceReader;
-import br.com.api.orders.util.UserEmail;
+import br.com.api.orders.util.GetUserEmail;
 
 @Component
 public class OrderServiceImpl implements IOrderService {
@@ -30,10 +30,10 @@ public class OrderServiceImpl implements IOrderService {
             Date date = new Date(); 
             Timestamp orderTimeStamp = new Timestamp(date.getTime());
 
-            new UserEmail();
-            String emailUser = UserEmail.userExist(newOrder);
+            new GetUserEmail();
+            String emailUser = GetUserEmail.userExist(newOrder);
 
-            OrderDTO orderDto = new OrderDTO(newOrder.getIdUser(), emailUser,
+            OrderDTO orderDto = new OrderDTO(1, newOrder.getIdUser(), emailUser,
                     newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
            
             Gson gson = new GsonBuilder()
@@ -43,15 +43,23 @@ public class OrderServiceImpl implements IOrderService {
             String jsonString = gson.toJson(orderDto);
 
             SQSServiceProducer.sendMessageProducer(jsonString);
-            OrderDTO orderComplete = SQSServiceReader.messageReader();
+            
+            try {
+                OrderDTO orderComplete = SQSServiceReader.messageReader();
 
-            Order orderFinalizado = new Order(orderComplete.getIdUser(), orderComplete.getDescription(), 
-                                                orderComplete.getTotalValue(), orderComplete.getOrdersDate(), 
-                                                orderComplete.getStatus());
-
-            dao.save(orderFinalizado);
-
-            return orderFinalizado;
+                System.out.println(orderComplete);
+    
+                Order orderFinalizado = new Order(orderComplete.getIdUser(), orderComplete.getDescription(), 
+                                                    orderComplete.getTotalValue(), orderComplete.getOrdersDate(), 
+                                                    orderComplete.getStatus(), orderComplete.getStatusEmail());
+    
+                dao.save(orderFinalizado);
+    
+                return orderFinalizado;
+                
+            } catch (Exception e) {
+                throw new Exception("{\"error\":\"Bad Request\"}"); //TO-DO: mudar a mensagem para email não enviado
+            }
         } 
 
         throw new Exception("{\"error\":\"Bad Request\"}");

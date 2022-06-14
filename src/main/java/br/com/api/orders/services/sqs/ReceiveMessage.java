@@ -15,7 +15,7 @@ public class ReceiveMessage {
     public static List<Message> receiveMessages(SqsClient sqsClient, String queueUrl) {
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
-                .waitTimeSeconds(20)
+                .waitTimeSeconds(5)
                 .maxNumberOfMessages(5)
                 .build();
 

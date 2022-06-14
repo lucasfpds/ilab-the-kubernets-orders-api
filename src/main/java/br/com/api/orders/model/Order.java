@@ -34,6 +34,10 @@ public class Order {
     @org.hibernate.annotations.ColumnDefault("aberto")
     private String status = "aberto";
 
+    @Column(name = "status_email", length = 50, nullable = false)
+    @org.hibernate.annotations.ColumnDefault("não enviado")
+    private String statusEmail = " não enviado";
+
     public Order() {
         
     }
@@ -46,12 +50,13 @@ public class Order {
     }
 
 
-    public Order(Integer idUser, String description, Integer totalValue, Timestamp ordersDate, String status) {
+    public Order(Integer idUser, String description, Integer totalValue, Timestamp ordersDate, String status, String statusEmail) {
         this.idUser = idUser;
         this.description = description;
         this.totalValue = totalValue;
         this.ordersDate = ordersDate;
         this.status = status;
+        this.statusEmail = statusEmail;
     }
 
     public Integer getIdOrder() {
@@ -102,10 +107,18 @@ public class Order {
         this.status = status;
     }
 
+    public String getStatusEmail() {
+        return statusEmail;
+    }
+
+    public void setStatusEmail(String statusEmail) {
+        this.statusEmail = statusEmail;
+    }
+
     @Override
     public String toString() {
         return "{\"idOrder\": \"" + idOrder + "\",\"idUser\": \"" + idUser + "\",\"description\": \"" + description
-                + "\",\"ordersDate\": \"" + ordersDate + "\",\"status\": \"" + status + "\",\"totalValue\": \""
-                + totalValue + "\"}";
+                + "\",\"totalValue\": \"" + totalValue + "\",\"ordersDate\": \"" + ordersDate 
+                + "\",\"status\": \"" + status + "\",\"statusEmail\": \"" + statusEmail + "\"}";
     }
 }
