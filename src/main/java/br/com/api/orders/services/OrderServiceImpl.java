@@ -55,7 +55,7 @@ public class OrderServiceImpl implements IOrderService {
                 return orderFinalizado;
                 
             } catch (Exception e) {
-                throw new Exception("{\"error\":\"Bad Request\"}"); //TO-DO: mudar a mensagem para email não enviado
+                throw new Exception("{\"error\":\"" +e.getMessage()+ "\"}"); //TO-DO: mudar a mensagem para email não enviado
             }
         } 
 

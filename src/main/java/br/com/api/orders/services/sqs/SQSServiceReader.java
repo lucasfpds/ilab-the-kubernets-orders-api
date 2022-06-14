@@ -15,23 +15,24 @@ public class SQSServiceReader {
         GetQueueUrlResponse createResult = ConfigurationsSQS.getCreateResult();
 
         List<Message> messages = ReceiveMessage.receiveMessages(sqsClient, createResult.queueUrl());
-
+        
         for (Message msg : messages) {
-            String stringMessage = msg.body();
-            
-            OrderDTO jsonPedido = new Gson().fromJson(stringMessage, OrderDTO.class);
+            String stringMessage = msg.body();    
 
-            System.out.println(jsonPedido.getStatus());
-            System.out.println(jsonPedido.getStatusEmail());
+            try {
+                OrderDTO jsonPedido = new Gson().fromJson(stringMessage, OrderDTO.class);
+        
+                if(jsonPedido.getStatus().equals("aberto") || jsonPedido.getStatus().equals("aberto")) {
+                    throw new Exception("{\"error\":\"O pedido não foi concluído com sucesso.\"}");
+                }
+        
+                sqsClient.close();
+                return jsonPedido;
 
-            if(jsonPedido.getStatus().equals("aberto")) {
-                throw new Exception("{\"error\":\"O pedido não foi concluído com sucesso.\"}");
+            } catch (Exception e) {
+                throw new Exception("{\"error\":\"" + e.getMessage() + "\"}");
             }
-
-            return jsonPedido;
         }
-
-        sqsClient.close();
         return null;
     }
 }

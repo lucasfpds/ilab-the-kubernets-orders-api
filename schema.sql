@@ -11,5 +11,5 @@ create table orders (
 	total_value integer not null,
 	orders_date timestamp not null,
 	statuss varchar(20) not null default 'aberto',
-	status_email varchar(50) not null default 'nao-enviado'
+	status_email varchar(50) not null default 'não enviado'
 );

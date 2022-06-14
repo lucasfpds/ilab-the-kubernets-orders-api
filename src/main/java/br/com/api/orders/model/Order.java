@@ -30,12 +30,10 @@ public class Order {
     @Column(name = "orders_date", columnDefinition = "TIMESTAMP", nullable = false)
     private Timestamp ordersDate;
 
-    @Column(name = "status", length = 20, nullable = false)
-    // @org.hibernate.annotations.ColumnDefault("aberto")
+    @Column(name = "status", length = 20, nullable = false, columnDefinition = "varchar(20) default 'aberto'")
     private String status = "aberto";
 
-    @Column(name = "status_email", length = 50, nullable = false)
-    // @org.hibernate.annotations.ColumnDefault("nao-enviado")
+    @Column(name = "status_email", length = 50, nullable = false, columnDefinition = "varchar(20) default 'não enviado'")
     private String statusEmail = "não enviado";
 
     public Order() {

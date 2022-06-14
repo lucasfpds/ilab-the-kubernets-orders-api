@@ -4,6 +4,7 @@ br/com/api/orders/services/sqs/SQSServiceReader.class
 br/com/api/orders/dto/OrderDTO.class
 br/com/api/orders/services/sqs/SendMessage.class
 br/com/api/orders/util/GetUserEmail.class
+br/com/api/orders/services/sqs/DeleteMessage.class
 br/com/api/orders/services/sqs/AuthenticationSQS$1$1.class
 br/com/api/orders/controllers/OrderController.class
 br/com/api/orders/services/sqs/ConfigurationsSQS.class
