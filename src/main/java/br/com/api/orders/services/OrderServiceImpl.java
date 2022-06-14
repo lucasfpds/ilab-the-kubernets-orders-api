@@ -73,16 +73,6 @@ public class OrderServiceImpl implements IOrderService {
         return null;
     }
 
-    @Override
-    public Optional<Order> readOrderById(Integer id) {
-        try {
-            return dao.findById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     private boolean checkExistOrder(Order order) {
         if (order.getIdUser() != null && order.getDescription() != null && order.getTotalValue() != null) {            
             return true;
