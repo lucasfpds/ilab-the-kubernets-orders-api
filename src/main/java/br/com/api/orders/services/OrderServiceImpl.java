@@ -32,7 +32,7 @@ public class OrderServiceImpl implements IOrderService {
             new GetUserEmail();
             String emailUser = GetUserEmail.userExist(newOrder);
 
-            OrderDTO orderDto = new OrderDTO(1, newOrder.getIdUser(), emailUser,
+            OrderDTO orderDto = new OrderDTO(2, newOrder.getIdUser(), emailUser,
                     newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
            
             Gson gson = new GsonBuilder()
@@ -44,10 +44,10 @@ public class OrderServiceImpl implements IOrderService {
             SQSServiceProducer.sendMessageProducer(jsonString);
             
             try {
-                OrderDTO orderComplete = new OrderDTO();
+                OrderDTO orderComplete = orderDto;
 
                 do {
-                    orderComplete = SQSServiceReader.messageReader();
+                    orderComplete = SQSServiceReader.messageReader(orderDto.getIdAdmin().toString());
                 } while(orderComplete == null);
     
                 Order orderFinalizado = new Order(orderComplete.getIdUser(), orderComplete.getDescription(), 
@@ -59,11 +59,11 @@ public class OrderServiceImpl implements IOrderService {
                 return orderFinalizado;
                 
             } catch (Exception e) {
-                throw new Exception("{\"error\":\"" +e.getMessage()+ "\"}"); //TO-DO: mudar a mensagem para email não enviado
+                throw new Exception("{\"message\":\"" +e.getMessage()+ "\"}"); //TO-DO: mudar a mensagem para email não enviado
             }
         } 
 
-        throw new Exception("{\"error\":\"Bad Request\"}");
+        throw new Exception("{\"message\":\"Bad Request\"}");
     }
 
     @Override
