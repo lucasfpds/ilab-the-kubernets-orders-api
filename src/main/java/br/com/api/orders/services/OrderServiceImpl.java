@@ -3,7 +3,6 @@ package br.com.api.orders.services;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,9 +44,11 @@ public class OrderServiceImpl implements IOrderService {
             SQSServiceProducer.sendMessageProducer(jsonString);
             
             try {
-                OrderDTO orderComplete = SQSServiceReader.messageReader();
+                OrderDTO orderComplete = new OrderDTO();
 
-                System.out.println(orderComplete);
+                do {
+                    orderComplete = SQSServiceReader.messageReader();
+                } while(orderComplete == null);
     
                 Order orderFinalizado = new Order(orderComplete.getIdUser(), orderComplete.getDescription(), 
                                                     orderComplete.getTotalValue(), orderComplete.getOrdersDate(), 
@@ -58,7 +59,7 @@ public class OrderServiceImpl implements IOrderService {
                 return orderFinalizado;
                 
             } catch (Exception e) {
-                throw new Exception("{\"error\":\"Bad Request\"}"); //TO-DO: mudar a mensagem para email não enviado
+                throw new Exception("{\"error\":\"" +e.getMessage()+ "\"}"); //TO-DO: mudar a mensagem para email não enviado
             }
         } 
 
@@ -69,16 +70,6 @@ public class OrderServiceImpl implements IOrderService {
     public List<Order> readOrders() {
         try {
             return (List<Order>) dao.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public Optional<Order> readOrderById(Integer id) {
-        try {
-            return dao.findById(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
