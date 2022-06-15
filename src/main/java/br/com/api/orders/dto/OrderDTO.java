@@ -12,6 +12,10 @@ public class OrderDTO {
     private String status = "aberto";
     private String statusEmail = "não enviado";
 
+    public OrderDTO() {
+        
+    }
+
     public OrderDTO(Integer idAdmin, Integer idUser, String emailUser, String description, Integer totalValue,
             Timestamp ordersDate) {
         this.idAdmin = idAdmin;

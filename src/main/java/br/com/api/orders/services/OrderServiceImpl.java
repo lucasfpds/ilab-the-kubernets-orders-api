@@ -44,7 +44,11 @@ public class OrderServiceImpl implements IOrderService {
             SQSServiceProducer.sendMessageProducer(jsonString);
             
             try {
-                OrderDTO orderComplete = SQSServiceReader.messageReader();
+                OrderDTO orderComplete = new OrderDTO();
+
+                do {
+                    orderComplete = SQSServiceReader.messageReader();
+                } while(orderComplete == null);
     
                 Order orderFinalizado = new Order(orderComplete.getIdUser(), orderComplete.getDescription(), 
                                                     orderComplete.getTotalValue(), orderComplete.getOrdersDate(), 
