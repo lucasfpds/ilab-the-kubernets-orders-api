@@ -26,9 +26,6 @@ public class OrderController<Json> {
             return ResponseEntity.status(201).body(order);
         
         } catch (Exception e) {
-            // Object error = gson.fromJson(e.getMessage(), Object.class);
-
-            // return ResponseEntity.status(400).body(gson.toJson(error));
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }

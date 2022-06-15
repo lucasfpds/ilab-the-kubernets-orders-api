@@ -16,6 +16,8 @@ import br.com.api.orders.model.Order;
 import br.com.api.orders.services.sqs.SQSServiceProducer;
 import br.com.api.orders.services.sqs.SQSServiceReader;
 import br.com.api.orders.util.GetUserEmail;
+import br.com.api.orders.util.Users;
+
 
 @Component
 public class OrderServiceImpl implements IOrderService {
@@ -30,9 +32,9 @@ public class OrderServiceImpl implements IOrderService {
             Timestamp orderTimeStamp = new Timestamp(date.getTime());
 
             new GetUserEmail();
-            String emailUser = GetUserEmail.userExist(newOrder);
+            Users user = GetUserEmail.userExist(newOrder);
 
-            OrderDTO orderDto = new OrderDTO(2, newOrder.getIdUser(), emailUser,
+            OrderDTO orderDto = new OrderDTO(2, newOrder.getIdUser(), user.getName(), user.getEmail(),
                     newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
            
             Gson gson = new GsonBuilder()
