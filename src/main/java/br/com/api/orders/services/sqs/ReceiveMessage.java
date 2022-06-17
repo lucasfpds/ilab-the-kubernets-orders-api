@@ -13,7 +13,7 @@ public class ReceiveMessage {
     public static List<Message> receiveMessages(SqsClient sqsClient, String queueUrl) {
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
-                .waitTimeSeconds(2)
+                .waitTimeSeconds(5)
                 .messageAttributeNames("Code")
                 .maxNumberOfMessages(5)
                 .build();

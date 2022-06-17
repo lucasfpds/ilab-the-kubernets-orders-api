@@ -34,7 +34,7 @@ public class OrderServiceImpl implements IOrderService {
             new GetUserEmail();
             Users user = GetUserEmail.userExist(newOrder);
 
-            OrderDTO orderDto = new OrderDTO(2, newOrder.getIdUser(), user.getName(), user.getEmail(),
+            OrderDTO orderDto = new OrderDTO(1, newOrder.getIdUser(), user.getName(), user.getEmail(),
                     newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
            
             Gson gson = new GsonBuilder()
@@ -48,9 +48,13 @@ public class OrderServiceImpl implements IOrderService {
             try {
                 OrderDTO orderComplete = orderDto;
 
+                Integer count = 0;
+                
                 do {
                     orderComplete = SQSServiceReader.messageReader(orderDto.getIdAdmin().toString());
-                } while(orderComplete == null);
+
+                    count++;
+                } while(orderComplete == null && count <= 5);
     
                 Order orderFinalizado = new Order(orderComplete.getIdUser(), orderComplete.getDescription(), 
                                                     orderComplete.getTotalValue(), orderComplete.getOrdersDate(), 
