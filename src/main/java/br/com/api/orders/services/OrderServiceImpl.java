@@ -55,6 +55,8 @@ public class OrderServiceImpl implements IOrderService {
 
                     count++;
                 } while(orderComplete == null && count <= 5);
+
+                count = 0; 
     
                 Order orderFinalizado = new Order(orderComplete.getIdUser(), orderComplete.getDescription(), 
                                                     orderComplete.getTotalValue(), orderComplete.getOrdersDate(), 
