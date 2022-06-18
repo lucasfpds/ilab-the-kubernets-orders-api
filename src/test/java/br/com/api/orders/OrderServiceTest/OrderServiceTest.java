@@ -1,9 +1,9 @@
 package br.com.api.orders.OrderServiceTest;
 
 import java.sql.Timestamp;
-
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -29,7 +29,6 @@ public class OrderServiceTest {
     @Test
     public void createOrderTestWithOrderModel(){
        date = new Date();
-       System.out.println(date);
         Order order = new Order(2, "pão com rapadura", 
                         250000,new Timestamp(date.getTime()) , 
                         "aberto", "não enviado");
@@ -45,8 +44,35 @@ public class OrderServiceTest {
         Assertions.assertThat(order.getStatusEmail()).isEqualTo("não enviado");
 
 
-
     }
+
+   @Test
+   public void listAllOrderTest(){
+    date = new Date();
+    Order orderFirst = new Order(2, "pão com rapadura", 
+                    250000,new Timestamp(date.getTime()) , 
+                    "aberto", "não enviado");
+    
+    
+    Order orderSecond = new Order(3, "pão com feijão", 
+                                    300000,new Timestamp(date.getTime()) , 
+                                    "finalizado", "enviado"); 
+                                    
+    ordersDAO.save(orderFirst);
+    ordersDAO.save(orderSecond);
+
+    List<Order> ordersList = new ArrayList();
+
+    for (Order order : ordersDAO.findAll()) {
+        
+        ordersList.add(order);
+    }
+    
+    Assertions.assertThat(ordersList.size()).isEqualTo(2);
+    
+
+   }
+    
 
     
 }
