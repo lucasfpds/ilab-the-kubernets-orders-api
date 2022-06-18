@@ -19,6 +19,7 @@
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/dto/OrderDTO.java
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/controllers/OrderController.java
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/services/OrderServiceImpl.java
+/Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/util/Users.java
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/model/Order.java
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/Application.java
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/services/sqs/AuthenticationSQS.java

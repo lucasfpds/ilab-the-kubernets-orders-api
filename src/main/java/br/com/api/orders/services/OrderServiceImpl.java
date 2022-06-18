@@ -16,6 +16,8 @@ import br.com.api.orders.model.Order;
 import br.com.api.orders.services.sqs.SQSServiceProducer;
 import br.com.api.orders.services.sqs.SQSServiceReader;
 import br.com.api.orders.util.GetUserEmail;
+import br.com.api.orders.util.Users;
+
 
 @Component
 public class OrderServiceImpl implements IOrderService {
@@ -30,9 +32,9 @@ public class OrderServiceImpl implements IOrderService {
             Timestamp orderTimeStamp = new Timestamp(date.getTime());
 
             new GetUserEmail();
-            String emailUser = GetUserEmail.userExist(newOrder);
+            Users user = GetUserEmail.userExist(newOrder);
 
-            OrderDTO orderDto = new OrderDTO(1, newOrder.getIdUser(), emailUser,
+            OrderDTO orderDto = new OrderDTO(1, newOrder.getIdUser(), user.getName(), user.getEmail(),
                     newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
            
             Gson gson = new GsonBuilder()
@@ -44,11 +46,17 @@ public class OrderServiceImpl implements IOrderService {
             SQSServiceProducer.sendMessageProducer(jsonString);
             
             try {
-                OrderDTO orderComplete = new OrderDTO();
+                OrderDTO orderComplete = orderDto;
 
+                Integer count = 0;
+                
                 do {
-                    orderComplete = SQSServiceReader.messageReader();
-                } while(orderComplete == null);
+                    orderComplete = SQSServiceReader.messageReader(orderDto.getIdAdmin().toString());
+
+                    count++;
+                } while(orderComplete == null && count <= 5);
+
+                count = 0; 
     
                 Order orderFinalizado = new Order(orderComplete.getIdUser(), orderComplete.getDescription(), 
                                                     orderComplete.getTotalValue(), orderComplete.getOrdersDate(), 
@@ -59,11 +67,11 @@ public class OrderServiceImpl implements IOrderService {
                 return orderFinalizado;
                 
             } catch (Exception e) {
-                throw new Exception("{\"error\":\"" +e.getMessage()+ "\"}"); //TO-DO: mudar a mensagem para email não enviado
+                throw new Exception("{\"message\":\"" +e.getMessage()+ "\"}"); //TO-DO: mudar a mensagem para email não enviado
             }
         } 
 
-        throw new Exception("{\"error\":\"Bad Request\"}");
+        throw new Exception("{\"message\":\"Bad Request\"}");
     }
 
     @Override

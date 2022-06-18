@@ -9,7 +9,9 @@ import org.springframework.web.client.RestTemplate;
 import br.com.api.orders.model.Order;
 
 public class GetUserEmail {
-    public static String userExist(Order order) throws Exception {
+    public static Users userExist(Order order) throws Exception {
+        Users user = new Users();
+
         RestTemplate rest = new RestTemplate();
         String url = "http://localhost:8082/read/";
 
@@ -20,9 +22,16 @@ public class GetUserEmail {
         JsonNode id = root.path("id");
         
         if(id != null) {
-            return root.get("email").textValue();
+            String name = root.get("name").textValue();
+            String email = root.get("email").textValue();
+
+            user.setName(name);
+            user.setEmail(email);
+
+            return user;
         }
 
         throw new Exception("{\"error\":\"O usuário utilizado não existe!\"}");
     }
 }
+
