@@ -13,5 +13,6 @@
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/services/sqs/SQSServiceProducer.java
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/services/sqs/ReceiveMessage.java
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/dao/OrdersDAO.java
+/Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/util/GetAdminEmail.java
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/CorsConfiguration.java
 /Users/yhaohannah.pamela/Documents/gama-academy/modulo2/desafio-modulo2/orders-api/src/main/java/br/com/api/orders/services/sqs/DeleteMessage.java

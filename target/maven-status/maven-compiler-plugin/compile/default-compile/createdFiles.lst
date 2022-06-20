@@ -13,6 +13,7 @@ br/com/api/orders/util/Users.class
 br/com/api/orders/services/sqs/ReceiveMessage.class
 br/com/api/orders/model/Order.class
 br/com/api/orders/services/sqs/SQSServiceProducer.class
+br/com/api/orders/util/GetAdminEmail.class
 br/com/api/orders/services/sqs/AuthenticationSQS.class
 br/com/api/orders/services/IOrderService.class
 br/com/api/orders/services/sqs/AuthenticationSQS$1.class

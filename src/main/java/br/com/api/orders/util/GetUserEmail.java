@@ -13,15 +13,15 @@ public class GetUserEmail {
         Users user = new Users();
 
         RestTemplate rest = new RestTemplate();
-        String url = "http://localhost:8082/read/";
+        String url = "http://localhost:8081/read/";
 
         ResponseEntity<String> response = rest.getForEntity(url + order.getIdUser(), String.class);
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response.getBody());
         JsonNode id = root.path("id");
-        
-        if(id != null) {
+
+        if (id != null) {
             String name = root.get("name").textValue();
             String email = root.get("email").textValue();
 
@@ -34,4 +34,3 @@ public class GetUserEmail {
         throw new Exception("{\"error\":\"O usuário utilizado não existe!\"}");
     }
 }
-
