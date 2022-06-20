@@ -32,6 +32,7 @@ public class OrderController<Json> {
 
     @GetMapping("/orders")
     public ResponseEntity<?> readOrders() {
+        System.out.println("chegando na rota escolhida");
         return ResponseEntity.status(200).body(iservice.readOrders());
     }
 }
