@@ -11,13 +11,14 @@ import br.com.api.orders.model.Order;
 public class GetAdminEmail {
     public static String adminExist(Order order) throws Exception {
         RestTemplate rest = new RestTemplate();
-        String url = "http://localhost:8080/read/";
-
+        String url = "http://localhost:8080/admin/";
+        
         ResponseEntity<String> response = rest.getForEntity(url + order.getIdAdmin(), String.class);
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response.getBody());
         JsonNode id = root.path("id");
+
 
         if (id != null) {
             String email = root.get("email").textValue();

@@ -31,21 +31,25 @@ public class OrderServiceImpl implements IOrderService {
             Date date = new Date();
             Timestamp orderTimeStamp = new Timestamp(date.getTime());
 
-            newOrder.setIdAdmin(1);
-
+            
+            // newOrder.setIdAdmin(1);
+            
             new GetUserEmail();
             Users user = GetUserEmail.userExist(newOrder);
-
-            // new GetAdminEmail();
-            // String emailAdmin = GetAdminEmail.adminExist(newOrder);
-
-            // OrderDTO orderDto = new OrderDTO(newOrder.getIdAdmin(), emailAdmin,
-            // newOrder.getIdUser(), user.getName(), user.getEmail(),
-            // newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
-
-            OrderDTO orderDto = new OrderDTO(newOrder.getIdAdmin(), "thekubernetes4@gmail.com", newOrder.getIdUser(),
-                    user.getName(), user.getEmail(),
+            
+            new GetAdminEmail();
+            String emailAdmin = GetAdminEmail.adminExist(newOrder);
+            
+            // System.out.println(user);
+            
+            OrderDTO orderDto = new OrderDTO(newOrder.getIdAdmin(), emailAdmin,
+                    newOrder.getIdUser(), user.getName(), user.getEmail(),
                     newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
+
+            // OrderDTO orderDto = new OrderDTO(newOrder.getIdAdmin(),
+            // "thekubernetes4@gmail.com", newOrder.getIdUser(),
+            // user.getName(), user.getEmail(),
+            // newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
 
             Gson gson = new GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
@@ -100,7 +104,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     private boolean checkExistOrder(Order order) {
-        if (order.getIdUser() != null && order.getDescription() != null && order.getTotalValue() != null) {
+        if (order.getIdAdmin() != null && order.getIdUser() != null && order.getDescription() != null && order.getTotalValue() != null) {
             return true;
         }
 
