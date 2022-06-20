@@ -3,19 +3,31 @@ package br.com.api.orders.util;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.api.orders.model.Order;
 
 public class GetUserEmail {
-    public static Users userExist(Order order) throws Exception {
+    private static final String PREFIX = "Bearer ";
+
+    public static Users userExist(Order order, String token) throws Exception {
         Users user = new Users();
+
+        token = token.replace(PREFIX, "").trim();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "BEARER " + token);
+
+        HttpEntity<?> entity = new HttpEntity<Object>(headers);
 
         RestTemplate rest = new RestTemplate();
         String url = "http://localhost:8081/read/";
 
-        ResponseEntity<String> response = rest.getForEntity(url + order.getIdUser(), String.class);
+        ResponseEntity<String> response = rest.exchange(url + order.getIdUser(), HttpMethod.GET, entity, String.class);
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response.getBody());

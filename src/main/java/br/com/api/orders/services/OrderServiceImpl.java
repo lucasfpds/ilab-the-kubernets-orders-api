@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import br.com.api.orders.dao.OrdersDAO;
@@ -25,31 +26,24 @@ public class OrderServiceImpl implements IOrderService {
     private OrdersDAO dao;
 
     @Override
-    public Order createOrder(Order newOrder) throws Exception {
+    public Order createOrder(Order newOrder, HttpHeaders headers) throws Exception {
 
         if (checkExistOrder(newOrder)) {
+            String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
+
             Date date = new Date();
             Timestamp orderTimeStamp = new Timestamp(date.getTime());
-
-            
-            // newOrder.setIdAdmin(1);
             
             new GetUserEmail();
-            Users user = GetUserEmail.userExist(newOrder);
-            
+            Users user = GetUserEmail.userExist(newOrder, token);
+
+
             new GetAdminEmail();
-            String emailAdmin = GetAdminEmail.adminExist(newOrder);
-            
-            // System.out.println(user);
+            String emailAdmin = GetAdminEmail.adminExist(newOrder, token);
             
             OrderDTO orderDto = new OrderDTO(newOrder.getIdAdmin(), emailAdmin,
                     newOrder.getIdUser(), user.getName(), user.getEmail(),
                     newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
-
-            // OrderDTO orderDto = new OrderDTO(newOrder.getIdAdmin(),
-            // "thekubernetes4@gmail.com", newOrder.getIdUser(),
-            // user.getName(), user.getEmail(),
-            // newOrder.getDescription(), newOrder.getTotalValue(), orderTimeStamp);
 
             Gson gson = new GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
