@@ -21,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -30,7 +31,7 @@ import br.com.api.orders.dao.OrdersDAO;
 import br.com.api.orders.model.Order;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 public class OrderControllerTest {
@@ -41,7 +42,7 @@ public class OrderControllerTest {
     @MockBean
     private OrdersDAO ordersDAO;
 
-    private String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InplQGRhc2NvdmVzLmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2In0.QOKJ5q6v8pudq1kvRnZ9_vrGPj3tbq641vYGUgbyjEM";
+    private String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVAbWFpbC5jb20ifQ.zSzXXWVcRmgceeV53oGg0mcP8rmqvN14pU27DXuhQrM";
     
     @Autowired
     private MockMvc mockMvc;
@@ -61,11 +62,11 @@ public class OrderControllerTest {
             String newOrder = gson.toJson(order);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/create-order")
-        .contentType(MediaType.APPLICATION_JSON)
-        .characterEncoding("UTF-8")
-        .headers(headers)
-        .content(newOrder)
-        ).andExpect(MockMvcResultMatchers.status().isCreated());
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .characterEncoding("UTF-8")
+                                                .headers(headers)
+                                                .content(newOrder)
+                                                ).andExpect(MockMvcResultMatchers.status().isCreated());
         
          
        
@@ -91,7 +92,8 @@ public class OrderControllerTest {
                                              .contentType(MediaType.APPLICATION_JSON)
                                              .characterEncoding("UTF-8")
                                              .headers(headers)
-                                             ).andExpect(MockMvcResultMatchers.status().isOk());
+                                             ).andExpect((MockMvcResultMatchers.status().isOk())
+                                             );
                                              
                                                                         
     }
