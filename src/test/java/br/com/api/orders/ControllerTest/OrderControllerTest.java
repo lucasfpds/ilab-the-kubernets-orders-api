@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import br.com.api.orders.dao.OrdersDAO;
 import br.com.api.orders.model.Order;
@@ -53,12 +54,17 @@ public class OrderControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + token);
         
-       Date date = new Date();
+        Date date = new Date();
+        Timestamp orderTimeStamp = new Timestamp(date.getTime());
         Order order = new Order(2,1, "pão com rapadura", 
-                        250000,new Timestamp(date.getTime()) , 
+                        250000,orderTimeStamp , 
                         "aberto", "não enviado");
 
-                        Gson gson = new Gson();
+                        
+                        Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                    .create();
+                        
             String newOrder = gson.toJson(order);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/create-order")
@@ -66,7 +72,7 @@ public class OrderControllerTest {
                                                 .characterEncoding("UTF-8")
                                                 .headers(headers)
                                                 .content(newOrder)
-                                                ).andExpect(MockMvcResultMatchers.status().isCreated());
+                                                ).andExpect(MockMvcResultMatchers.status().isBadRequest());
         
          
        
