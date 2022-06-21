@@ -21,6 +21,9 @@ public class Order {
     @Column(name = "id_user", nullable = false)
     private Integer idUser;
 
+    @Column(name = "id_admin", nullable = false)
+    private Integer idAdmin;
+
     @Column(name = "description", length = 255, nullable = false)
     private String description;
 
@@ -37,7 +40,7 @@ public class Order {
     private String statusEmail = "não enviado";
 
     public Order() {
-        
+
     }
 
     public Order(Integer idUser, String description, Integer totalValue, Timestamp ordersDate) {
@@ -47,9 +50,19 @@ public class Order {
         this.ordersDate = ordersDate;
     }
 
-
-    public Order(Integer idUser, String description, Integer totalValue, Timestamp ordersDate, String status, String statusEmail) {
+    public Order(Integer idUser, Integer idAdmin, String description, Integer totalValue, Timestamp ordersDate) {
         this.idUser = idUser;
+        this.idAdmin = idAdmin;
+        this.description = description;
+        this.totalValue = totalValue;
+        this.ordersDate = ordersDate;
+    }
+
+    public Order(Integer idUser, Integer idAdmin, String description, Integer totalValue, Timestamp ordersDate,
+            String status,
+            String statusEmail) {
+        this.idUser = idUser;
+        this.idAdmin = idAdmin;
         this.description = description;
         this.totalValue = totalValue;
         this.ordersDate = ordersDate;
@@ -71,6 +84,14 @@ public class Order {
 
     public void setIdUser(Integer idUser) {
         this.idUser = idUser;
+    }
+
+    public Integer getIdAdmin() {
+        return idAdmin;
+    }
+
+    public void setIdAdmin(Integer idAdmin) {
+        this.idAdmin = idAdmin;
     }
 
     public String getDescription() {
@@ -115,8 +136,13 @@ public class Order {
 
     @Override
     public String toString() {
-        return "{\"idOrder\": \"" + idOrder + "\",\"idUser\": \"" + idUser + "\",\"description\": \"" + description
-                + "\",\"totalValue\": \"" + totalValue + "\",\"ordersDate\": \"" + ordersDate 
-                + "\",\"status\": \"" + status + "\",\"statusEmail\": \"" + statusEmail + "\"}";
+        return "{\"idOrder\": \"" + idOrder
+                + "\",\"idUser\": \"" + idUser
+                + "\",\"idAdmin\": \"" + idAdmin
+                + "\",\"description\": \"" + description
+                + "\",\"totalValue\": \"" + totalValue
+                + "\",\"ordersDate\": \"" + ordersDate
+                + "\",\"status\": \"" + status
+                + "\",\"statusEmail\": \"" + statusEmail + "\"}";
     }
 }

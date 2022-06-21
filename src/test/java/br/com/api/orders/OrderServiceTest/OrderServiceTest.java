@@ -29,7 +29,7 @@ public class OrderServiceTest {
     @Test
     public void createOrderTestWithOrderModel(){
        date = new Date();
-        Order order = new Order(2, "pão com rapadura", 
+        Order order = new Order(2,1, "pão com rapadura", 
                         250000,new Timestamp(date.getTime()) , 
                         "aberto", "não enviado");
 
@@ -49,12 +49,12 @@ public class OrderServiceTest {
    @Test
    public void listAllOrderTest(){
     date = new Date();
-    Order orderFirst = new Order(2, "pão com rapadura", 
+    Order orderFirst = new Order(2,1, "pão com rapadura", 
                     250000,new Timestamp(date.getTime()) , 
                     "aberto", "não enviado");
     
     
-    Order orderSecond = new Order(3, "pão com feijão", 
+    Order orderSecond = new Order(3,1, "pão com feijão", 
                                     300000,new Timestamp(date.getTime()) , 
                                     "finalizado", "enviado"); 
                                     

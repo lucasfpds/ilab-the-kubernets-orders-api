@@ -31,7 +31,7 @@ import br.com.api.orders.dao.OrdersDAO;
 import br.com.api.orders.model.Order;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 public class OrderControllerTest {
@@ -42,7 +42,7 @@ public class OrderControllerTest {
     @MockBean
     private OrdersDAO ordersDAO;
 
-    private String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVAbWFpbC5jb20ifQ.zSzXXWVcRmgceeV53oGg0mcP8rmqvN14pU27DXuhQrM";
+    private String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZV9hb192aXZvQHRlc3RlLmNvbSIsImlzcyI6InRoZUt1YmVybmV0ZXNBUEkiLCJleHAiOjE2NTU4MzA5Njl9.q0Kdq_fdI2fZkw3G0u0dni9wvFbpqAwwY7ZR2QRdDz4";
     
     @Autowired
     private MockMvc mockMvc;
@@ -54,7 +54,7 @@ public class OrderControllerTest {
         headers.add("Authorization", "Bearer " + token);
         
        Date date = new Date();
-        Order order = new Order(2, "pão com rapadura", 
+        Order order = new Order(2,1, "pão com rapadura", 
                         250000,new Timestamp(date.getTime()) , 
                         "aberto", "não enviado");
 
@@ -80,11 +80,9 @@ public class OrderControllerTest {
        
         
         Date date = new Date();
-        List<Order> orders = Arrays.asList(new Order(2, "pão com rapadura", 
-                        250000,new Timestamp(date.getTime()) , 
-                        "aberto", "não enviado"),new Order(3, "pão com rapadura", 
-                        250000,new Timestamp(date.getTime()) , 
-                        "aberto", "não enviado"));
+        List<Order> orders = Arrays.asList(new Order(2,1, "pão com rapadura", 
+                        250000,new Timestamp(date.getTime())),new Order(3,1, "pão com rapadura", 
+                        250000,new Timestamp(date.getTime())));
 
         BDDMockito.when(ordersDAO.findAll()).thenReturn((List<Order>) orders);  
 

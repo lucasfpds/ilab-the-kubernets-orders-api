@@ -11,12 +11,10 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.api.orders.model.Order;
 
-public class GetUserEmail {
+public class GetAdminEmail {
     private static final String PREFIX = "Bearer ";
 
-    public static Users userExist(Order order, String token) throws Exception {
-        Users user = new Users();
-
+    public static String adminExist(Order order, String token) throws Exception {
         token = token.replace(PREFIX, "").trim();
 
         HttpHeaders headers = new HttpHeaders();
@@ -25,24 +23,21 @@ public class GetUserEmail {
         HttpEntity<?> entity = new HttpEntity<Object>(headers);
 
         RestTemplate rest = new RestTemplate();
-        String url = "http://localhost:8081/read/";
-
-        ResponseEntity<String> response = rest.exchange(url + order.getIdUser(), HttpMethod.GET, entity, String.class);
+        String url = "http://localhost:8080/admin/";
+                
+        ResponseEntity<String> response = rest.exchange(url + order.getIdAdmin(), HttpMethod.GET, entity, String.class);
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response.getBody());
         JsonNode id = root.path("id");
 
+
         if (id != null) {
-            String name = root.get("name").textValue();
             String email = root.get("email").textValue();
 
-            user.setName(name);
-            user.setEmail(email);
-
-            return user;
+            return email;
         }
 
-        throw new Exception("{\"error\":\"O usuário utilizado não existe!\"}");
+        throw new Exception("{\"error\":\"O administrador não tem um ID válido!\"}");
     }
 }
