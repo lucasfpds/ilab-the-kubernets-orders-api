@@ -42,5 +42,5 @@ public class RestService {
         ResponseBody responseBody = new Gson().fromJson(bodyAsString,
         ResponseBody.class);
         return new UsernamePasswordAuthenticationToken(responseBody.getPrincipal(), null, Collections.emptyList());
-        }     
+        }
     }
