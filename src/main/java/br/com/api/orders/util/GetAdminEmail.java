@@ -18,7 +18,7 @@ public class GetAdminEmail {
         token = token.replace(PREFIX, "").trim();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "BEARER " + token);
+        headers.set("Authorization", "Bearer " + token);
 
         HttpEntity<?> entity = new HttpEntity<Object>(headers);
 
