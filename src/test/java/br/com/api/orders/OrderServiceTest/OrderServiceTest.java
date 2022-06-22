@@ -69,10 +69,5 @@ public class OrderServiceTest {
     }
     
     Assertions.assertThat(ordersList.size()).isEqualTo(2);
-    
-
    }
-    
-
-    
 }

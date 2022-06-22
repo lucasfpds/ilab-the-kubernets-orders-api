@@ -2,10 +2,12 @@ package br.com.api.orders.ControllerTest;
 
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Arrays;
-import org.assertj.core.api.Assertions;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,18 +17,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import br.com.api.orders.dao.OrdersDAO;
 import br.com.api.orders.model.Order;
@@ -36,9 +33,6 @@ import br.com.api.orders.model.Order;
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 public class OrderControllerTest {
-    
-    @Autowired
-    private TestRestTemplate template;
 
     @MockBean
     private OrdersDAO ordersDAO;
@@ -97,9 +91,6 @@ public class OrderControllerTest {
                                              .characterEncoding("UTF-8")
                                              .headers(headers)
                                              ).andExpect((MockMvcResultMatchers.status().isOk())
-                                             );
-                                             
-                                                                        
+                                             );                                                                
     }
-
 }
