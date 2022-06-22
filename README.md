@@ -121,7 +121,7 @@ Git, Java 17, Spring Boot, PostgreSQL.
 <br/>
 <hr/>
 
-## Editar a aplicação ou rodar localmente
+## Executar a aplicação
 
 ```bash
 
