@@ -11,7 +11,7 @@
 
    * [Sobre o projeto](#-sobre-o-projeto)
    * [Informações Gerais](#-informações-gerais)
-   * [Endpoints da API](#-endpoints-da-API)
+   * [Endpoints da API](#-endpoints-da-api)
       * [Create Order](#-create-order)
       * [List Orders](#-list-orders)
    * [Pré-requisitos](#-pré-requisitos)
