@@ -1,0 +1,48 @@
+image: yhaohannah/ubuntu-java-maven
+
+stages:
+- build
+- test
+- docker
+- deploy
+
+build:
+  stage: build
+  script:
+    - sh build.sh
+    - sh start.sh
+
+test:
+  stage: test
+  script:
+    - mvn test
+
+docker:
+  image: docker:19.03.0
+
+  services:
+  - docker:dind
+
+  before_script:
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+  
+  stage: docker
+
+  dependencies:
+    - test
+  
+  script:
+    - echo "Creating image docker..."
+    - ocker build -t $CI_DOCKER_USER/api-order -f Dockerfile .
+    - echo "Uploading image to docker hub..."
+    - docker push $CI_DOCKER_USER/java-test-hello-gitlab
+
+# deploy:
+#   stage: deploy
+#   script:
+#     - echo "Deploying Application..."
+#     - 
+#     - echo "Application successfully deployed!"
+
+
