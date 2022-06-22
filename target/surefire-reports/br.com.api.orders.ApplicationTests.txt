@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: br.com.api.orders.ApplicationTests
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.983 s - in br.com.api.orders.ApplicationTests
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.672 s - in br.com.api.orders.ApplicationTests
+>>>>>>> c7a50df (feat: implementação do dockerfile)
