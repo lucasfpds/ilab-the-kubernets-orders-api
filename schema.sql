@@ -1,12 +1,16 @@
-drop database if exists db_orders;
+drop database if exists dborders;
 
-create database db_orders;
+create database dborders;
+
+drop table orders;
 
 create table orders (
-	id_oreder serial not null primary key,
+	id_order serial not null primary key,
 	id_user integer not null,
-	descricao varchar(255) not null, 
-	valor_total integer not null,
-	data_pedido timestamp not null,
-	status varchar(20) not null
+	id_Admin integer not null,
+	descriptions varchar(255) not null, 
+	total_value integer not null,
+	orders_date timestamp not null,
+	statuss varchar(20) not null default 'aberto',
+	status_email varchar(50) not null default 'não enviado'
 );

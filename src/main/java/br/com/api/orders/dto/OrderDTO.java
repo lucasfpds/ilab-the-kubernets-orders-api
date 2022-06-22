@@ -3,20 +3,48 @@ package br.com.api.orders.dto;
 import java.sql.Timestamp;
 
 public class OrderDTO {
+    private Integer idAdmin;
+    private String emailAdmin;
     private Integer idUser;
+    private String nameUser;
     private String emailUser;
     private String description;
     private Integer totalValue;
     private Timestamp ordersDate;
     private String status = "aberto";
-    
-    public OrderDTO(Integer idUser, String emailUser, String description, Integer totalValue,
-            Timestamp ordersDate) {
+    private String statusEmail = "não enviado";
+
+    public OrderDTO() {
+
+    }
+
+    public OrderDTO(Integer idAdmin, String emailAdmin, Integer idUser,
+            String nameUser, String emailUser, String description,
+            Integer totalValue, Timestamp ordersDate) {
+        this.idAdmin = idAdmin;
+        this.emailAdmin = emailAdmin;
         this.idUser = idUser;
+        this.nameUser = nameUser;
         this.emailUser = emailUser;
         this.description = description;
         this.totalValue = totalValue;
         this.ordersDate = ordersDate;
+    }
+
+    public Integer getIdAdmin() {
+        return idAdmin;
+    }
+
+    public void setIdAdmin(Integer idAdmin) {
+        this.idAdmin = idAdmin;
+    }
+
+    public String getEmailAdmin() {
+        return emailAdmin;
+    }
+
+    public void setEmailAdmin(String emailAdmin) {
+        this.emailAdmin = emailAdmin;
     }
 
     public Integer getIdUser() {
@@ -25,6 +53,14 @@ public class OrderDTO {
 
     public void setIdUser(Integer idUser) {
         this.idUser = idUser;
+    }
+
+    public String getNameUser() {
+        return nameUser;
+    }
+
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
     }
 
     public String getEmailUser() {
@@ -65,5 +101,13 @@ public class OrderDTO {
 
     public void setStatus(String status) {
         this.status = status;
-    }  
+    }
+
+    public String getStatusEmail() {
+        return statusEmail;
+    }
+
+    public void setStatusEmail(String statusEmail) {
+        this.statusEmail = statusEmail;
+    }
 }

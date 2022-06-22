@@ -21,6 +21,9 @@ public class Order {
     @Column(name = "id_user", nullable = false)
     private Integer idUser;
 
+    @Column(name = "id_admin", nullable = false)
+    private Integer idAdmin;
+
     @Column(name = "description", length = 255, nullable = false)
     private String description;
 
@@ -30,12 +33,14 @@ public class Order {
     @Column(name = "orders_date", columnDefinition = "TIMESTAMP", nullable = false)
     private Timestamp ordersDate;
 
-    @Column(name = "status", length = 20, nullable = false)
-    @org.hibernate.annotations.ColumnDefault("aberto")
+    @Column(name = "status", length = 20, nullable = false, columnDefinition = "varchar(20) default 'aberto'")
     private String status = "aberto";
 
+    @Column(name = "status_email", length = 50, nullable = false, columnDefinition = "varchar(20) default 'não enviado'")
+    private String statusEmail = "não enviado";
+
     public Order() {
-        
+
     }
 
     public Order(Integer idUser, String description, Integer totalValue, Timestamp ordersDate) {
@@ -45,13 +50,24 @@ public class Order {
         this.ordersDate = ordersDate;
     }
 
-
-    public Order(Integer idUser, String description, Integer totalValue, Timestamp ordersDate, String status) {
+    public Order(Integer idUser, Integer idAdmin, String description, Integer totalValue, Timestamp ordersDate) {
         this.idUser = idUser;
+        this.idAdmin = idAdmin;
+        this.description = description;
+        this.totalValue = totalValue;
+        this.ordersDate = ordersDate;
+    }
+
+    public Order(Integer idUser, Integer idAdmin, String description, Integer totalValue, Timestamp ordersDate,
+            String status,
+            String statusEmail) {
+        this.idUser = idUser;
+        this.idAdmin = idAdmin;
         this.description = description;
         this.totalValue = totalValue;
         this.ordersDate = ordersDate;
         this.status = status;
+        this.statusEmail = statusEmail;
     }
 
     public Integer getIdOrder() {
@@ -68,6 +84,14 @@ public class Order {
 
     public void setIdUser(Integer idUser) {
         this.idUser = idUser;
+    }
+
+    public Integer getIdAdmin() {
+        return idAdmin;
+    }
+
+    public void setIdAdmin(Integer idAdmin) {
+        this.idAdmin = idAdmin;
     }
 
     public String getDescription() {
@@ -102,10 +126,23 @@ public class Order {
         this.status = status;
     }
 
+    public String getStatusEmail() {
+        return statusEmail;
+    }
+
+    public void setStatusEmail(String statusEmail) {
+        this.statusEmail = statusEmail;
+    }
+
     @Override
     public String toString() {
-        return "{\"idOrder\": \"" + idOrder + "\",\"idUser\": \"" + idUser + "\",\"description\": \"" + description
-                + "\",\"ordersDate\": \"" + ordersDate + "\",\"status\": \"" + status + "\",\"totalValue\": \""
-                + totalValue + "\"}";
+        return "{\"idOrder\": \"" + idOrder
+                + "\",\"idUser\": \"" + idUser
+                + "\",\"idAdmin\": \"" + idAdmin
+                + "\",\"description\": \"" + description
+                + "\",\"totalValue\": \"" + totalValue
+                + "\",\"ordersDate\": \"" + ordersDate
+                + "\",\"status\": \"" + status
+                + "\",\"statusEmail\": \"" + statusEmail + "\"}";
     }
 }
