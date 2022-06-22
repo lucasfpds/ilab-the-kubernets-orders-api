@@ -9,7 +9,6 @@ stages:
 build:
   stage: build
   script:
-    - mvn clean package
     - java -jar ./target/api.orders-0.0.1-SNAPSHOT.jar
 
 test:
@@ -17,26 +16,26 @@ test:
   script:
     - mvn test
 
-docker:
-  image: docker:19.03.0
+# docker:
+#   image: docker:19.03.0
 
-  services:
-  - docker:dind
+#   services:
+#   - docker:dind
 
-  before_script:
-    - docker info
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+#   before_script:
+#     - docker info
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
   
-  stage: docker
+#   stage: docker
 
-  dependencies:
-    - test
+#   dependencies:
+#     - test
   
-  script:
-    - echo "Creating image docker..."
-    - ocker build -t $CI_DOCKER_USER/api-order -f Dockerfile .
-    - echo "Uploading image to docker hub..."
-    - docker push $CI_DOCKER_USER/java-test-hello-gitlab
+#   script:
+#     - echo "Creating image docker..."
+#     - ocker build -t $CI_DOCKER_USER/api-order-teste -f Dockerfile .
+#     - echo "Uploading image to docker hub..."
+#     - docker push $CI_DOCKER_USER/api-order-teste
 
 # deploy:
 #   stage: deploy
