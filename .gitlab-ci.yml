@@ -2,9 +2,9 @@ image: yhaohannah/ubuntu-maven-java
 
 stages:
 - build
-- test
-- docker
-- deploy
+# - test
+# - docker
+# - deploy
 
 build:
   stage: build
