@@ -1,4 +1,4 @@
-image: yhaohannah/ubuntu-java-maven
+image: yhaohannah/ubuntu-maven-java
 
 stages:
 - build
