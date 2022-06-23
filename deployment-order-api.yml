@@ -18,7 +18,7 @@ spec:
       containers:
         - name: rvsfrebeca-order-api
           image: rvsfrebeca/imagem-orders-api
-          imagePullPolixy: Always
+          imagePullPolicy: Always
           ports:
             - containerPort: 8082
           env:
