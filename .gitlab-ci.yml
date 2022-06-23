@@ -53,9 +53,7 @@ deploy:
   stage: deploy
   image: frankpercicotte/ansible
   script:
-    - cat << EOF > key-k8s-alunos-ilab.pem
-      $CI_KEY_PEM
-      "EOF"
+    - echo "$CI_KEY_PEM" | tr -d '\r' >> key-k8s-alunos-ilab.pem
     - chmod 400 key-k8s-alunos-ilab.pem
     - ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts ansible.yml -u ubuntu --private-key key-k8s-alunos-ilab.pem
   only:
