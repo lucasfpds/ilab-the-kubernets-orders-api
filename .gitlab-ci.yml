@@ -38,11 +38,10 @@ docker:
     - docker build -t $CI_DOCKER_USER/api-order-teste -f Dockerfile .
     - docker push $CI_DOCKER_USER/api-order-teste
 
-# deploy:
-#   stage: deploy
-#   script:
-#     - echo "Deploying Application..."
-#     - 
-#     - echo "Application successfully deployed!"
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying Application..."
+    - echo "Application successfully deployed!"
 
 
