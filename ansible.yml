@@ -1,4 +1,12 @@
-- hosts: ec2-dev-k8s
+# - hosts: ec2-dev-k8s
+#   tasks:
+#     - name: Copiando arquivo de deploy para o diretório do grupo 4
+#     - shell: "cp deployment-order-api.yml ./grupo4/"
+
+- hosts: all
   tasks:
     - name: Copiando arquivo de deploy para o diretório do grupo 4
-    - shell: "cp deployment-order-api.yml ./grupo4/"
+      copy:
+      src: 'deploy'
+      dest: '/home/ubuntu/grupo4/deployment-order-api'
+      remote_src: yes
