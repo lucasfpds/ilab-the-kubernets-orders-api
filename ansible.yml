@@ -1,4 +1,4 @@
 - hosts: ec2-dev-k8s
   tasks:
-    - name: Copiando arquivo de deploy para o diretório grupo4
+    - name: Copiando arquivo de deploy para o diretório do grupo 4
     - shell: "cp deployment-order-api.yml ./grupo4/"
