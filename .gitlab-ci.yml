@@ -49,6 +49,7 @@ docker:
     - develop
 
 deploy:
+  when: manual
   image: matshareyourscript/aws-helm-kubectl
   stage: deploy
   before_script:
