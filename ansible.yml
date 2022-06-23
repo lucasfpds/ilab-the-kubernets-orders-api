@@ -2,7 +2,6 @@
 #   tasks:
 #     - name: Copiando arquivo de deploy para o diretório do grupo 4
 #     - shell: "cp deployment-order-api.yml ./grupo4/"
-
 - hosts: all
   tasks:
     - name: Copiando arquivo de deploy para o diretório do grupo 4
