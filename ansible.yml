@@ -7,6 +7,6 @@
   tasks:
     - name: Copiando arquivo de deploy para o diretório do grupo 4
       copy:
-      src: 'deploy'
-      dest: '/home/ubuntu/grupo4/deployment-order-api'
+      src: 'deployment-order-api.yml'
+      dest: '/home/ubuntu/grupo4/deployment-order-api.yml'
       remote_src: yes
