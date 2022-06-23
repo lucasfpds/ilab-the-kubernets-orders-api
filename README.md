@@ -152,7 +152,6 @@ As seguintes linguagens/tecnologias foram usadas na construção do projeto:
   <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white" target="_blank">
    
   <img src="https://img.shields.io/badge/kubernetes-326ce5.svg?&style=for-the-badge&logo=kubernetes&logoColor=white" target="_blank">
-
 </div>
 
 <br/>
