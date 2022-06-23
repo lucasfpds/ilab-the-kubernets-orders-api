@@ -49,13 +49,15 @@ docker:
     - develop
 
 deploy:
-  when: manual
+  image: matshareyourscript/aws-helm-kubectl
   stage: deploy
-  image: frankpercicotte/ansible
+  before_script:
+    - aws eks --region us-east-1 update-kubeconfig  --name ilab
+    - export KUBECONFIG=/root/.kube/config
   script:
-    - echo "$CI_KEY_PEM" | tr -d '\r' >> key-k8s-alunos-ilab.pem
-    - chmod 400 key-k8s-alunos-ilab.pem
-    - ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts ansible.yml -u ubuntu --private-key key-k8s-alunos-ilab.pem
+    - kubectl delete -f deployment-order-api.yml -n grupo-4-namespace  
+    - kubectl apply -f deployment-order-api.yml -n grupo-4-namespace  
+   
   only:
     - main
-    - develop
+    - test/ci-cd
