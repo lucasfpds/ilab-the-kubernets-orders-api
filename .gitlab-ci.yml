@@ -41,9 +41,9 @@ docker:
   - test
   
   script:
-    - docker build -t "$CI_DOCKER_USER/api-order-teste:v1" .
-    - docker push "$CI_DOCKER_USER/api-order-teste:v1"
-    
+    - docker build -t "$CI_REGISTRY_USER/api-order-teste:v1" .
+    - docker push "$CI_REGISTRY_USER/api-order-teste:v1"
+
   only:
     - main
     - develop
