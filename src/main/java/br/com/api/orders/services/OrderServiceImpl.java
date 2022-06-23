@@ -71,6 +71,8 @@ public class OrderServiceImpl implements IOrderService {
                         orderComplete.getTotalValue(), orderComplete.getOrdersDate(),
                         orderComplete.getStatus(), orderComplete.getStatusEmail());
 
+                System.out.println(orderFinalizado);
+
                 if (orderFinalizado.getStatus().equals("aberto")) {
                     throw new Exception("{\"message\":\"O pedido não foi finalizado com sucesso.\"}");
                 }
