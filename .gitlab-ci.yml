@@ -14,12 +14,18 @@ build:
   artifacts:
     paths:
       - target/*.jar
+  only:
+    - main
+    - develop
 
 test:
   image: maven:3-openjdk-17
   stage: test
   script:
     - mvn test
+  only:
+    - main
+    - develop
 
 docker:
   stage: docker
@@ -37,11 +43,21 @@ docker:
   script:
     - docker build -t "$CI_DOCKER_USER/api-order-teste:v1" .
     - docker push "$CI_DOCKER_USER/api-order-teste:v1"
+    
+  only:
+    - main
+    - develop
 
 deploy:
+  when: manual
   stage: deploy
+  image: frankpercicotte/ansible
   script:
-    - echo "Deploying Application..."
-    - echo "Application successfully deployed!"
-
-
+    - cat << EOF > key-k8s-alunos-ilab.pem
+      $CI_KEY_PEM
+      "EOF"
+    - chmod 400 key-k8s-alunos-ilab.pem
+    - ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts ansible.yml -u ubuntu --private-key key-k8s-alunos-ilab.pem
+  only:
+    - main
+    - develop
