@@ -17,6 +17,7 @@ build:
   only:
     - main
     - develop
+    - teste-deploy
 
 test:
   image: maven:3-openjdk-17
@@ -26,6 +27,7 @@ test:
   only:
     - main
     - develop
+    - teste-deploy
 
 docker:
   stage: docker
@@ -47,6 +49,7 @@ docker:
   only:
     - main
     - develop
+    - teste-deploy
 
 deploy:
   image: matshareyourscript/aws-helm-kubectl
@@ -62,3 +65,4 @@ deploy:
   only:
     - main
     - develop
+    - teste-deploy
