@@ -29,7 +29,7 @@ public class RestService {
         token = token.replace(PREFIX, "").trim();
 
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("http://clusterip-admin:8080/token/valid");
+        HttpPost httpPost = new HttpPost("http://a2a2cf5d13cf74131bc6dc3880894c1a-1494030207.us-east-1.elb.amazonaws.com/admin/token/valid");
         String json = "{\"token\":\"" + token + "\"}";
         StringEntity entity = new StringEntity(json);
         httpPost.setEntity(entity);

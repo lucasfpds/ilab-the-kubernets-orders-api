@@ -25,7 +25,7 @@ public class GetUserEmail {
         HttpEntity<?> entity = new HttpEntity<Object>(headers);
 
         RestTemplate rest = new RestTemplate();
-        String url = "http://clusterip-user:8081/read/";
+        String url = "http://a2a2cf5d13cf74131bc6dc3880894c1a-1494030207.us-east-1.elb.amazonaws.com/user/read/";
 
         ResponseEntity<String> response = rest.exchange(url + order.getIdUser(), HttpMethod.GET, entity, String.class);
 
