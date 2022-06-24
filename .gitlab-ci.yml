@@ -59,7 +59,6 @@ deploy:
     - kubectl apply -f nginx.yml -n grupo-4-namespace
     - kubectl delete -f deployment-order-api.yml -n grupo-4-namespace  
     - kubectl apply -f deployment-order-api.yml -n grupo-4-namespace  
-   
   only:
     - main
     - develop
