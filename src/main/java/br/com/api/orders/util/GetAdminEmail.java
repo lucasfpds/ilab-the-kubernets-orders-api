@@ -23,7 +23,7 @@ public class GetAdminEmail {
         HttpEntity<?> entity = new HttpEntity<Object>(headers);
 
         RestTemplate rest = new RestTemplate();
-        String url = "http://http://clusterip-admin:8080/admin/";
+        String url = "http://clusterip-admin:8080/admin/";
                 
         ResponseEntity<String> response = rest.exchange(url + order.getIdAdmin(), HttpMethod.GET, entity, String.class);
 
