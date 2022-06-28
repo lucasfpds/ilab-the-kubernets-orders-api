@@ -21,7 +21,7 @@ public class ApiSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
-                .anyRequest().authenticated().and().cors();
+                .anyRequest().permitAll().and().cors();
 
         httpSec.addFilterBefore(new ApiFilter(), UsernamePasswordAuthenticationFilter.class);
     }
